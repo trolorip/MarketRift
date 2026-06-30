@@ -1,0 +1,125 @@
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-12 col-md-8 col-lg-5">
+
+      <div class="text-center mb-4">
+
+        <img
+          src="assets/img/riftbound-logo.png"
+          class="img-fluid"
+          style="max-height:150px"
+          alt="Riftbound Market">
+
+      </div>
+
+      <div class="card border-0 shadow-lg">
+
+        <div class="card-body p-4">
+
+          <h1 class="h3 text-center fw-bold">
+            Bienvenido a Riftbound Market
+          </h1>
+
+          <p class="text-center text-muted mb-4">
+            Compra, vende e intercambia tus cartas favoritas.
+          </p>
+
+          <div class="alert alert-dark small">
+
+            <strong>Cuenta Administrador</strong>
+
+            <br>
+
+            Correo:
+            <code>{{ cuentaAdmin.correo }}</code>
+
+            <br>
+
+            Contraseña:
+            <code>{{ cuentaAdmin.password }}</code>
+
+          </div>
+
+          <form [formGroup]="formulario" (ngSubmit)="login()">
+
+            <div class="alert alert-danger" *ngIf="error">
+              {{ error }}
+            </div>
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Correo electrónico
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                formControlName="correo"
+                [class.is-invalid]="campoInvalido('correo')">
+
+              <div class="invalid-feedback" *ngIf="campoInvalido('correo')">
+                Ingresa un correo válido.
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Contraseña
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                formControlName="password"
+                [class.is-invalid]="campoInvalido('password')">
+
+              <div class="invalid-feedback" *ngIf="campoInvalido('password')">
+                La contraseña es obligatoria.
+              </div>
+
+            </div>
+
+            <button
+              class="btn btn-warning w-100 fw-bold"
+              type="submit">
+              Entrar a la tienda
+            </button>
+
+          </form>
+
+          <hr>
+
+          <p class="text-center mb-1">
+
+            ¿Aún no tienes cuenta?
+
+            <a routerLink="/registro">
+              Crear cuenta
+            </a>
+
+          </p>
+
+          <p class="text-center">
+
+            ¿Olvidaste tu contraseña?
+
+            <a routerLink="/recuperar">
+              Recuperarla aquí
+            </a>
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

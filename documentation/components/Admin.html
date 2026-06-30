@@ -1,0 +1,2157 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>app-web-rift documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">app-web-rift documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  Admin</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/app/pages/admin/admin.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" class="nav-link"
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-admin</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                        <div>        <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+</div>
+                        <div>        <code><a href="https://angular.dev/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+</div>
+                        <div>        <code><a href="https://angular.dev/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./admin.css</code></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./admin.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./admin.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+        <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <p class="comment"><i>No results matching.</i></p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+    <div class="tab-pane fade " id="api">    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#cartaEditandoId" >cartaEditandoId</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#cartas" >cartas</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#cartasIniciales" >cartasIniciales</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#compras" >compras</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#formularioCarta" >formularioCarta</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#mensaje" >mensaje</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#mensajeAdmin" >mensajeAdmin</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#menu" >menu</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#nombreTienda" >nombreTienda</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#usuarios" >usuarios</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#campoInvalido" >campoInvalido</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#cargarCartas" >cargarCartas</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#cargarCompras" >cargarCompras</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#cargarUsuarios" >cargarUsuarios</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#editarCarta" >editarCarta</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#eliminarCarta" >eliminarCarta</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#eliminarUsuario" >eliminarUsuario</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#guardarCarta" >guardarCarta</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#guardarCartas" >guardarCartas</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#limpiarFormulario" >limpiarFormulario</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.dev/api/forms/FormBuilder" target="_blank">FormBuilder</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/pages/admin/admin.ts:88</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.dev/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="campoInvalido"></a>
+                    <span class="name">
+                        <span ><b>campoInvalido</b></span>
+                        <a href="#campoInvalido"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>campoInvalido(campo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="241"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:241</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>campo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarCartas"></a>
+                    <span class="name">
+                        <span ><b>cargarCartas</b></span>
+                        <a href="#cargarCartas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarCartas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarCompras"></a>
+                    <span class="name">
+                        <span ><b>cargarCompras</b></span>
+                        <a href="#cargarCompras"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarCompras()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarUsuarios"></a>
+                    <span class="name">
+                        <span ><b>cargarUsuarios</b></span>
+                        <a href="#cargarUsuarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarUsuarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editarCarta"></a>
+                    <span class="name">
+                        <span ><b>editarCarta</b></span>
+                        <a href="#editarCarta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editarCarta(carta: <a href="../interfaces/Carta.html" target="_self">Carta</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>carta</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Carta.html" target="_self" >Carta</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eliminarCarta"></a>
+                    <span class="name">
+                        <span ><b>eliminarCarta</b></span>
+                        <a href="#eliminarCarta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>eliminarCarta(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eliminarUsuario"></a>
+                    <span class="name">
+                        <span ><b>eliminarUsuario</b></span>
+                        <a href="#eliminarUsuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>eliminarUsuario(correo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="231"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:231</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>correo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarCarta"></a>
+                    <span class="name">
+                        <span ><b>guardarCarta</b></span>
+                        <a href="#guardarCarta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarCarta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:148</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarCartas"></a>
+                    <span class="name">
+                        <span ><b>guardarCartas</b></span>
+                        <a href="#guardarCartas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarCartas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="limpiarFormulario"></a>
+                    <span class="name">
+                        <span ><b>limpiarFormulario</b></span>
+                        <a href="#limpiarFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>limpiarFormulario()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="219"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:219</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="100"
+                                    class="link-to-prism">src/app/pages/admin/admin.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cartaEditandoId"></a>
+                    <span class="name">
+                        <span ><b>cartaEditandoId</b></span>
+                        <a href="#cartaEditandoId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/admin/admin.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cartas"></a>
+                    <span class="name">
+                        <span ><b>cartas</b></span>
+                        <a href="#cartas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Carta[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/pages/admin/admin.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cartasIniciales"></a>
+                    <span class="name">
+                        <span ><b>cartasIniciales</b></span>
+                        <a href="#cartasIniciales"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Carta[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: 1,
+      nombre: &#x27;Ivern&#x27;,
+      descripcion: &#x27;Unleashed Showcase&#x27;,
+      precio: 289.97,
+      imagen: &#x27;assets/img/ivern.jpg&#x27;,
+      stock: 10
+    },
+    {
+      id: 2,
+      nombre: &#x27;Baron&#x27;,
+      descripcion: &#x27;Ultimate&#x27;,
+      precio: 1255.99,
+      imagen: &#x27;assets/img/baron.jpg&#x27;,
+      stock: 5
+    },
+    {
+      id: 3,
+      nombre: &#x27;Lee Sin&#x27;,
+      descripcion: &#x27;Origins Showcase&#x27;,
+      precio: 2.09,
+      imagen: &#x27;assets/img/leesin.jpg&#x27;,
+      stock: 20
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/pages/admin/admin.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="compras"></a>
+                    <span class="name">
+                        <span ><b>compras</b></span>
+                        <a href="#compras"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Compra.html" target="_self" >Compra[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/admin/admin.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formularioCarta"></a>
+                    <span class="name">
+                        <span ><b>formularioCarta</b></span>
+                        <a href="#formularioCarta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.dev/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/pages/admin/admin.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensaje"></a>
+                    <span class="name">
+                        <span ><b>mensaje</b></span>
+                        <a href="#mensaje"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/admin/admin.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensajeAdmin"></a>
+                    <span class="name">
+                        <span ><b>mensajeAdmin</b></span>
+                        <a href="#mensajeAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Hola, Administrador. Estás revisando información como administrador.&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/admin/admin.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menu"></a>
+                    <span class="name">
+                        <span ><b>menu</b></span>
+                        <a href="#menu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { texto: &#x27;Catálogo&#x27;, ruta: &#x27;/catalogo&#x27; },
+    { texto: &#x27;Carrito&#x27;, ruta: &#x27;/carrito&#x27; },
+    { texto: &#x27;Perfil&#x27;, ruta: &#x27;/perfil&#x27; },
+    { texto: &#x27;Admin&#x27;, ruta: &#x27;/admin&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/pages/admin/admin.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nombreTienda"></a>
+                    <span class="name">
+                        <span ><b>nombreTienda</b></span>
+                        <a href="#nombreTienda"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Riftbound Admin&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/admin/admin.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuarios"></a>
+                    <span class="name">
+                        <span ><b>usuarios</b></span>
+                        <a href="#usuarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Usuario[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/admin/admin.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from &#x27;@angular/forms&#x27;;
+import { RouterLink } from &#x27;@angular/router&#x27;;
+
+interface Usuario {
+  nombre: string;
+  correo: string;
+  rol: &#x27;admin&#x27; | &#x27;cliente&#x27;;
+}
+
+interface Carta {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  imagen: string;
+  stock: number;
+  cantidad?: number;
+}
+
+interface Compra {
+  id: number;
+  usuario?: string;
+  correo?: string;
+  fecha: string;
+  total: number;
+  cartas: Carta[];
+}
+
+@Component({
+  selector: &#x27;app-admin&#x27;,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  templateUrl: &#x27;./admin.html&#x27;,
+  styleUrl: &#x27;./admin.css&#x27;
+})
+export class Admin implements OnInit {
+
+  nombreTienda: string &#x3D; &#x27;Riftbound Admin&#x27;;
+
+  mensajeAdmin: string &#x3D; &#x27;Hola, Administrador. Estás revisando información como administrador.&#x27;;
+
+  mensaje: string &#x3D; &#x27;&#x27;;
+
+  formularioCarta: FormGroup;
+
+  cartaEditandoId: number | null &#x3D; null;
+
+  usuarios: Usuario[] &#x3D; [];
+
+  compras: Compra[] &#x3D; [];
+
+  cartas: Carta[] &#x3D; [];
+
+  menu &#x3D; [
+    { texto: &#x27;Catálogo&#x27;, ruta: &#x27;/catalogo&#x27; },
+    { texto: &#x27;Carrito&#x27;, ruta: &#x27;/carrito&#x27; },
+    { texto: &#x27;Perfil&#x27;, ruta: &#x27;/perfil&#x27; },
+    { texto: &#x27;Admin&#x27;, ruta: &#x27;/admin&#x27; }
+  ];
+
+  cartasIniciales: Carta[] &#x3D; [
+    {
+      id: 1,
+      nombre: &#x27;Ivern&#x27;,
+      descripcion: &#x27;Unleashed Showcase&#x27;,
+      precio: 289.97,
+      imagen: &#x27;assets/img/ivern.jpg&#x27;,
+      stock: 10
+    },
+    {
+      id: 2,
+      nombre: &#x27;Baron&#x27;,
+      descripcion: &#x27;Ultimate&#x27;,
+      precio: 1255.99,
+      imagen: &#x27;assets/img/baron.jpg&#x27;,
+      stock: 5
+    },
+    {
+      id: 3,
+      nombre: &#x27;Lee Sin&#x27;,
+      descripcion: &#x27;Origins Showcase&#x27;,
+      precio: 2.09,
+      imagen: &#x27;assets/img/leesin.jpg&#x27;,
+      stock: 20
+    }
+  ];
+
+  constructor(private fb: FormBuilder) {
+    this.formularioCarta &#x3D; this.fb.group({
+      nombre: [&#x27;&#x27;, [Validators.required]],
+      precio: [0, [Validators.required, Validators.min(1)]],
+      descripcion: [&#x27;&#x27;, [Validators.required]],
+      imagen: [&#x27;&#x27;, [Validators.required]],
+      stock: [1, [Validators.required, Validators.min(0)]]
+    });
+  }
+
+  ngOnInit(): void {
+    this.cargarUsuarios();
+    this.cargarCompras();
+    this.cargarCartas();
+  }
+
+  cargarUsuarios(): void {
+    const usuariosGuardados &#x3D; localStorage.getItem(&#x27;usuarios&#x27;);
+
+    if (usuariosGuardados) {
+      this.usuarios &#x3D; JSON.parse(usuariosGuardados);
+    } else {
+      this.usuarios &#x3D; [
+        {
+          nombre: &#x27;Administrador&#x27;,
+          correo: &#x27;admin@riftboundmarket.cl&#x27;,
+          rol: &#x27;admin&#x27;
+        },
+        {
+          nombre: &#x27;Cliente Demo&#x27;,
+          correo: &#x27;cliente@riftboundmarket.cl&#x27;,
+          rol: &#x27;cliente&#x27;
+        }
+      ];
+
+      localStorage.setItem(&#x27;usuarios&#x27;, JSON.stringify(this.usuarios));
+    }
+  }
+
+  cargarCompras(): void {
+    this.compras &#x3D; JSON.parse(localStorage.getItem(&#x27;compras&#x27;) || &#x27;[]&#x27;);
+  }
+
+  cargarCartas(): void {
+    const cartasGuardadas &#x3D; localStorage.getItem(&#x27;cartas&#x27;);
+
+    if (cartasGuardadas) {
+      this.cartas &#x3D; JSON.parse(cartasGuardadas);
+    } else {
+      this.cartas &#x3D; this.cartasIniciales;
+      this.guardarCartas();
+    }
+  }
+
+  guardarCartas(): void {
+    localStorage.setItem(&#x27;cartas&#x27;, JSON.stringify(this.cartas));
+  }
+
+  guardarCarta(): void {
+    if (this.formularioCarta.invalid) {
+      this.formularioCarta.markAllAsTouched();
+      return;
+    }
+
+    const datos &#x3D; this.formularioCarta.value;
+
+    if (this.cartaEditandoId &#x3D;&#x3D;&#x3D; null) {
+      const nuevaCarta: Carta &#x3D; {
+        id: Date.now(),
+        nombre: datos.nombre,
+        precio: Number(datos.precio),
+        descripcion: datos.descripcion,
+        imagen: datos.imagen,
+        stock: Number(datos.stock)
+      };
+
+      this.cartas.push(nuevaCarta);
+      this.mensaje &#x3D; &#x27;Carta agregada correctamente.&#x27;;
+    } else {
+      const indice &#x3D; this.cartas.findIndex(
+        carta &#x3D;&gt; carta.id &#x3D;&#x3D;&#x3D; this.cartaEditandoId
+      );
+
+      if (indice !&#x3D;&#x3D; -1) {
+        this.cartas[indice] &#x3D; {
+          id: this.cartaEditandoId,
+          nombre: datos.nombre,
+          precio: Number(datos.precio),
+          descripcion: datos.descripcion,
+          imagen: datos.imagen,
+          stock: Number(datos.stock)
+        };
+
+        this.mensaje &#x3D; &#x27;Carta actualizada correctamente.&#x27;;
+      }
+    }
+
+    this.guardarCartas();
+    this.limpiarFormulario();
+  }
+
+  editarCarta(carta: Carta): void {
+    this.cartaEditandoId &#x3D; carta.id;
+
+    this.formularioCarta.patchValue({
+      nombre: carta.nombre,
+      precio: carta.precio,
+      descripcion: carta.descripcion,
+      imagen: carta.imagen,
+      stock: carta.stock
+    });
+
+    this.mensaje &#x3D; &#x27;Editando carta: &#x27; + carta.nombre;
+  }
+
+  eliminarCarta(id: number): void {
+    this.cartas &#x3D; this.cartas.filter(
+      carta &#x3D;&gt; carta.id !&#x3D;&#x3D; id
+    );
+
+    this.guardarCartas();
+
+    this.mensaje &#x3D; &#x27;Carta eliminada correctamente.&#x27;;
+
+    if (this.cartaEditandoId &#x3D;&#x3D;&#x3D; id) {
+      this.limpiarFormulario();
+    }
+  }
+
+  limpiarFormulario(): void {
+    this.cartaEditandoId &#x3D; null;
+
+    this.formularioCarta.reset({
+      nombre: &#x27;&#x27;,
+      precio: 0,
+      descripcion: &#x27;&#x27;,
+      imagen: &#x27;&#x27;,
+      stock: 1
+    });
+  }
+
+  eliminarUsuario(correo: string): void {
+    this.usuarios &#x3D; this.usuarios.filter(
+      usuario &#x3D;&gt; usuario.correo !&#x3D;&#x3D; correo
+    );
+
+    localStorage.setItem(&#x27;usuarios&#x27;, JSON.stringify(this.usuarios));
+
+    this.mensaje &#x3D; &#x27;Usuario eliminado correctamente.&#x27;;
+  }
+
+  campoInvalido(campo: string): boolean {
+    const control &#x3D; this.formularioCarta.get(campo);
+
+    return !!(
+      control &amp;&amp;
+      control.invalid &amp;&amp;
+      (control.dirty || control.touched)
+    );
+  }
+
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;nav class&#x3D;&quot;navbar navbar-expand-lg navbar-dark bg-dark&quot;&gt;
+
+  &lt;div class&#x3D;&quot;container&quot;&gt;
+
+    &lt;a class&#x3D;&quot;navbar-brand fw-bold&quot; routerLink&#x3D;&quot;/admin&quot;&gt;
+      {{ nombreTienda }}
+    &lt;/a&gt;
+
+    &lt;ul class&#x3D;&quot;navbar-nav ms-auto&quot;&gt;
+
+      &lt;li class&#x3D;&quot;nav-item&quot; *ngFor&#x3D;&quot;let item of menu&quot;&gt;
+
+        &lt;a class&#x3D;&quot;nav-link&quot; [routerLink]&#x3D;&quot;item.ruta&quot;&gt;
+          {{ item.texto }}
+        &lt;/a&gt;
+
+      &lt;/li&gt;
+
+    &lt;/ul&gt;
+
+  &lt;/div&gt;
+
+&lt;/nav&gt;
+
+&lt;main class&#x3D;&quot;container py-5&quot;&gt;
+
+  &lt;section class&#x3D;&quot;mb-4&quot;&gt;
+
+    &lt;h1 class&#x3D;&quot;h2&quot;&gt;
+      Panel de administración
+    &lt;/h1&gt;
+
+    &lt;p class&#x3D;&quot;lead&quot;&gt;
+      {{ mensajeAdmin }}
+    &lt;/p&gt;
+
+    &lt;div class&#x3D;&quot;alert alert-dark&quot;&gt;
+      Esta página solo permite acceso al rol
+      &lt;strong&gt;admin&lt;/strong&gt;.
+      Sirve para demostrar diferencia de permisos.
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;alert alert-success&quot; *ngIf&#x3D;&quot;mensaje&quot;&gt;
+      {{ mensaje }}
+    &lt;/div&gt;
+
+  &lt;/section&gt;
+
+  &lt;section class&#x3D;&quot;row&quot;&gt;
+
+    &lt;div class&#x3D;&quot;col-12 mb-4&quot;&gt;
+
+      &lt;div class&#x3D;&quot;card shadow&quot;&gt;
+
+        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+
+          &lt;h2 class&#x3D;&quot;h4&quot;&gt;
+            {{ cartaEditandoId &#x3D;&#x3D;&#x3D; null ? &#x27;Agregar carta&#x27; : &#x27;Editar carta&#x27; }}
+          &lt;/h2&gt;
+
+          &lt;form [formGroup]&#x3D;&quot;formularioCarta&quot; (ngSubmit)&#x3D;&quot;guardarCarta()&quot;&gt;
+
+            &lt;div class&#x3D;&quot;row&quot;&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-md-6 mb-3&quot;&gt;
+
+                &lt;label class&#x3D;&quot;form-label&quot;&gt;
+                  Nombre
+                &lt;/label&gt;
+
+                &lt;input
+                  type&#x3D;&quot;text&quot;
+                  class&#x3D;&quot;form-control&quot;
+                  formControlName&#x3D;&quot;nombre&quot;
+                  [class.is-invalid]&#x3D;&quot;campoInvalido(&#x27;nombre&#x27;)&quot;&gt;
+
+                &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+                  El nombre de la carta es obligatorio.
+                &lt;/div&gt;
+
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-md-3 mb-3&quot;&gt;
+
+                &lt;label class&#x3D;&quot;form-label&quot;&gt;
+                  Precio
+                &lt;/label&gt;
+
+                &lt;input
+                  type&#x3D;&quot;number&quot;
+                  class&#x3D;&quot;form-control&quot;
+                  formControlName&#x3D;&quot;precio&quot;
+                  [class.is-invalid]&#x3D;&quot;campoInvalido(&#x27;precio&#x27;)&quot;&gt;
+
+                &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+                  El precio debe ser mayor a 0.
+                &lt;/div&gt;
+
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-md-3 mb-3&quot;&gt;
+
+                &lt;label class&#x3D;&quot;form-label&quot;&gt;
+                  Stock
+                &lt;/label&gt;
+
+                &lt;input
+                  type&#x3D;&quot;number&quot;
+                  class&#x3D;&quot;form-control&quot;
+                  formControlName&#x3D;&quot;stock&quot;
+                  [class.is-invalid]&#x3D;&quot;campoInvalido(&#x27;stock&#x27;)&quot;&gt;
+
+                &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+                  El stock debe ser 0 o mayor.
+                &lt;/div&gt;
+
+              &lt;/div&gt;
+
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;
+                Descripción
+              &lt;/label&gt;
+
+              &lt;input
+                type&#x3D;&quot;text&quot;
+                class&#x3D;&quot;form-control&quot;
+                formControlName&#x3D;&quot;descripcion&quot;
+                [class.is-invalid]&#x3D;&quot;campoInvalido(&#x27;descripcion&#x27;)&quot;&gt;
+
+              &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+                La descripción es obligatoria.
+              &lt;/div&gt;
+
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+
+              &lt;label class&#x3D;&quot;form-label&quot;&gt;
+                Ruta imagen
+              &lt;/label&gt;
+
+              &lt;input
+                type&#x3D;&quot;text&quot;
+                class&#x3D;&quot;form-control&quot;
+                placeholder&#x3D;&quot;assets/img/nuevaCarta.jpg&quot;
+                formControlName&#x3D;&quot;imagen&quot;
+                [class.is-invalid]&#x3D;&quot;campoInvalido(&#x27;imagen&#x27;)&quot;&gt;
+
+              &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+                La ruta de la imagen es obligatoria.
+              &lt;/div&gt;
+
+            &lt;/div&gt;
+
+            &lt;button
+              type&#x3D;&quot;submit&quot;
+              class&#x3D;&quot;btn btn-success me-2&quot;&gt;
+              {{ cartaEditandoId &#x3D;&#x3D;&#x3D; null ? &#x27;Agregar carta&#x27; : &#x27;Guardar cambios&#x27; }}
+            &lt;/button&gt;
+
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-secondary&quot;
+              *ngIf&#x3D;&quot;cartaEditandoId !&#x3D;&#x3D; null&quot;
+              (click)&#x3D;&quot;limpiarFormulario()&quot;&gt;
+              Cancelar edición
+            &lt;/button&gt;
+
+          &lt;/form&gt;
+
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;col-12 mb-4&quot;&gt;
+
+      &lt;div class&#x3D;&quot;card shadow&quot;&gt;
+
+        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+
+          &lt;h2 class&#x3D;&quot;h4&quot;&gt;
+            Mantenedor de productos
+          &lt;/h2&gt;
+
+          &lt;p class&#x3D;&quot;text-muted&quot;&gt;
+            Desde esta sección el administrador puede revisar, editar y eliminar las cartas disponibles en el catálogo.
+          &lt;/p&gt;
+
+          &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+
+            &lt;table class&#x3D;&quot;table table-striped align-middle&quot;&gt;
+
+              &lt;thead&gt;
+
+                &lt;tr&gt;
+                  &lt;th&gt;Imagen&lt;/th&gt;
+                  &lt;th&gt;Nombre&lt;/th&gt;
+                  &lt;th&gt;Descripción&lt;/th&gt;
+                  &lt;th&gt;Precio&lt;/th&gt;
+                  &lt;th&gt;Stock&lt;/th&gt;
+                  &lt;th&gt;Acciones&lt;/th&gt;
+                &lt;/tr&gt;
+
+              &lt;/thead&gt;
+
+              &lt;tbody&gt;
+
+                &lt;tr *ngFor&#x3D;&quot;let carta of cartas&quot;&gt;
+
+                  &lt;td&gt;
+
+                    &lt;img
+                      [src]&#x3D;&quot;carta.imagen&quot;
+                      [alt]&#x3D;&quot;carta.nombre&quot;
+                      class&#x3D;&quot;imagen-admin&quot;&gt;
+
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+                    {{ carta.nombre }}
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+                    {{ carta.descripcion }}
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+                    ${{ carta.precio | number:&#x27;1.2-2&#x27; }}
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+
+                    &lt;span
+                      class&#x3D;&quot;badge&quot;
+                      [ngClass]&#x3D;&quot;carta.stock &gt; 0 ? &#x27;bg-success&#x27; : &#x27;bg-danger&#x27;&quot;&gt;
+                      {{ carta.stock }}
+                    &lt;/span&gt;
+
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+
+                    &lt;button
+                      type&#x3D;&quot;button&quot;
+                      class&#x3D;&quot;btn btn-warning btn-sm me-2&quot;
+                      (click)&#x3D;&quot;editarCarta(carta)&quot;&gt;
+                      Editar
+                    &lt;/button&gt;
+
+                    &lt;button
+                      type&#x3D;&quot;button&quot;
+                      class&#x3D;&quot;btn btn-danger btn-sm&quot;
+                      (click)&#x3D;&quot;eliminarCarta(carta.id)&quot;&gt;
+                      Eliminar
+                    &lt;/button&gt;
+
+                  &lt;/td&gt;
+
+                &lt;/tr&gt;
+
+              &lt;/tbody&gt;
+
+            &lt;/table&gt;
+
+          &lt;/div&gt;
+
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;col-12 col-lg-6 mb-4&quot;&gt;
+
+      &lt;div class&#x3D;&quot;card shadow&quot;&gt;
+
+        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+
+          &lt;h2 class&#x3D;&quot;h4&quot;&gt;
+            Usuarios registrados
+          &lt;/h2&gt;
+
+          &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+
+            &lt;table class&#x3D;&quot;table table-striped align-middle&quot;&gt;
+
+              &lt;thead&gt;
+
+                &lt;tr&gt;
+                  &lt;th&gt;Nombre&lt;/th&gt;
+                  &lt;th&gt;Correo&lt;/th&gt;
+                  &lt;th&gt;Rol&lt;/th&gt;
+                  &lt;th&gt;Acciones&lt;/th&gt;
+                &lt;/tr&gt;
+
+              &lt;/thead&gt;
+
+              &lt;tbody&gt;
+
+                &lt;tr *ngFor&#x3D;&quot;let usuario of usuarios&quot;&gt;
+
+                  &lt;td&gt;
+                    {{ usuario.nombre }}
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+                    {{ usuario.correo }}
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+
+                    &lt;span
+                      class&#x3D;&quot;badge&quot;
+                      [ngClass]&#x3D;&quot;usuario.rol &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; ? &#x27;bg-dark&#x27; : &#x27;bg-success&#x27;&quot;&gt;
+                      {{ usuario.rol }}
+                    &lt;/span&gt;
+
+                  &lt;/td&gt;
+
+                  &lt;td&gt;
+
+                    &lt;button
+                      *ngIf&#x3D;&quot;usuario.rol !&#x3D;&#x3D; &#x27;admin&#x27;&quot;
+                      class&#x3D;&quot;btn btn-danger btn-sm&quot;
+                      type&#x3D;&quot;button&quot;
+                      (click)&#x3D;&quot;eliminarUsuario(usuario.correo)&quot;&gt;
+                      Eliminar
+                    &lt;/button&gt;
+
+                    &lt;span
+                      *ngIf&#x3D;&quot;usuario.rol &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;&quot;
+                      class&#x3D;&quot;text-muted&quot;&gt;
+                      Protegido
+                    &lt;/span&gt;
+
+                  &lt;/td&gt;
+
+                &lt;/tr&gt;
+
+              &lt;/tbody&gt;
+
+            &lt;/table&gt;
+
+          &lt;/div&gt;
+
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;col-12 col-lg-6 mb-4&quot;&gt;
+
+      &lt;div class&#x3D;&quot;card shadow&quot;&gt;
+
+        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+
+          &lt;h2 class&#x3D;&quot;h4&quot;&gt;
+            Compras registradas
+          &lt;/h2&gt;
+
+          &lt;p class&#x3D;&quot;text-muted&quot;&gt;
+            El administrador puede revisar todas las compras efectuadas por los usuarios.
+          &lt;/p&gt;
+
+          &lt;div
+            class&#x3D;&quot;alert alert-info&quot;
+            *ngIf&#x3D;&quot;compras.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+            No existen compras registradas.
+          &lt;/div&gt;
+
+          &lt;div
+            class&#x3D;&quot;card mb-3&quot;
+            *ngFor&#x3D;&quot;let compra of compras&quot;&gt;
+
+            &lt;div class&#x3D;&quot;card-body&quot;&gt;
+
+              &lt;h5&gt;
+                {{ compra.usuario || &#x27;Cliente Riftbound&#x27; }}
+              &lt;/h5&gt;
+
+              &lt;p class&#x3D;&quot;mb-1&quot;&gt;
+                &lt;strong&gt;Correo:&lt;/strong&gt;
+                {{ compra.correo || &#x27;correo no registrado&#x27; }}
+              &lt;/p&gt;
+
+              &lt;p class&#x3D;&quot;mb-1&quot;&gt;
+                &lt;strong&gt;Fecha:&lt;/strong&gt;
+                {{ compra.fecha }}
+              &lt;/p&gt;
+
+              &lt;p class&#x3D;&quot;mb-2&quot;&gt;
+                &lt;strong&gt;Total:&lt;/strong&gt;
+                ${{ compra.total | number:&#x27;1.2-2&#x27; }}
+              &lt;/p&gt;
+
+              &lt;strong&gt;
+                Cartas compradas:
+              &lt;/strong&gt;
+
+              &lt;ul class&#x3D;&quot;mt-2&quot;&gt;
+
+                &lt;li *ngFor&#x3D;&quot;let carta of compra.cartas&quot;&gt;
+
+                  {{ carta.nombre }}
+                  ({{ carta.cantidad || 1 }})
+                  -
+                  ${{ carta.precio }}
+
+                &lt;/li&gt;
+
+              &lt;/ul&gt;
+
+            &lt;/div&gt;
+
+          &lt;/div&gt;
+
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+  &lt;/section&gt;
+
+&lt;/main&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./admin.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.imagen-admin {
+  width: 60px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><nav class="navbar navbar-expand-lg navbar-dark bg-dark">  <div class="container">    <a class="navbar-brand fw-bold" routerLink="/admin">      {{ nombreTienda }}    </a>    <ul class="navbar-nav ms-auto">      <li class="nav-item" *ngFor="let item of menu">        <a class="nav-link" [routerLink]="item.ruta">          {{ item.texto }}        </a>      </li>    </ul>  </div></nav><main class="container py-5">  <section class="mb-4">    <h1 class="h2">      Panel de administración    </h1>    <p class="lead">      {{ mensajeAdmin }}    </p>    <div class="alert alert-dark">      Esta página solo permite acceso al rol      <strong>admin</strong>.      Sirve para demostrar diferencia de permisos.    </div>    <div class="alert alert-success" *ngIf="mensaje">      {{ mensaje }}    </div>  </section>  <section class="row">    <div class="col-12 mb-4">      <div class="card shadow">        <div class="card-body">          <h2 class="h4">            {{ cartaEditandoId === null ? \'Agregar carta\' : \'Editar carta\' }}          </h2>          <form [formGroup]="formularioCarta" (ngSubmit)="guardarCarta()">            <div class="row">              <div class="col-12 col-md-6 mb-3">                <label class="form-label">                  Nombre                </label>                <input                  type="text"                  class="form-control"                  formControlName="nombre"                  [class.is-invalid]="campoInvalido(\'nombre\')">                <div class="invalid-feedback">                  El nombre de la carta es obligatorio.                </div>              </div>              <div class="col-12 col-md-3 mb-3">                <label class="form-label">                  Precio                </label>                <input                  type="number"                  class="form-control"                  formControlName="precio"                  [class.is-invalid]="campoInvalido(\'precio\')">                <div class="invalid-feedback">                  El precio debe ser mayor a 0.                </div>              </div>              <div class="col-12 col-md-3 mb-3">                <label class="form-label">                  Stock                </label>                <input                  type="number"                  class="form-control"                  formControlName="stock"                  [class.is-invalid]="campoInvalido(\'stock\')">                <div class="invalid-feedback">                  El stock debe ser 0 o mayor.                </div>              </div>            </div>            <div class="mb-3">              <label class="form-label">                Descripción              </label>              <input                type="text"                class="form-control"                formControlName="descripcion"                [class.is-invalid]="campoInvalido(\'descripcion\')">              <div class="invalid-feedback">                La descripción es obligatoria.              </div>            </div>            <div class="mb-3">              <label class="form-label">                Ruta imagen              </label>              <input                type="text"                class="form-control"                placeholder="assets/img/nuevaCarta.jpg"                formControlName="imagen"                [class.is-invalid]="campoInvalido(\'imagen\')">              <div class="invalid-feedback">                La ruta de la imagen es obligatoria.              </div>            </div>            <button              type="submit"              class="btn btn-success me-2">              {{ cartaEditandoId === null ? \'Agregar carta\' : \'Guardar cambios\' }}            </button>            <button              type="button"              class="btn btn-secondary"              *ngIf="cartaEditandoId !== null"              (click)="limpiarFormulario()">              Cancelar edición            </button>          </form>        </div>      </div>    </div>    <div class="col-12 mb-4">      <div class="card shadow">        <div class="card-body">          <h2 class="h4">            Mantenedor de productos          </h2>          <p class="text-muted">            Desde esta sección el administrador puede revisar, editar y eliminar las cartas disponibles en el catálogo.          </p>          <div class="table-responsive">            <table class="table table-striped align-middle">              <thead>                <tr>                  <th>Imagen</th>                  <th>Nombre</th>                  <th>Descripción</th>                  <th>Precio</th>                  <th>Stock</th>                  <th>Acciones</th>                </tr>              </thead>              <tbody>                <tr *ngFor="let carta of cartas">                  <td>                    <img                      [src]="carta.imagen"                      [alt]="carta.nombre"                      class="imagen-admin">                  </td>                  <td>                    {{ carta.nombre }}                  </td>                  <td>                    {{ carta.descripcion }}                  </td>                  <td>                    ${{ carta.precio | number:\'1.2-2\' }}                  </td>                  <td>                    <span                      class="badge"                      [ngClass]="carta.stock > 0 ? \'bg-success\' : \'bg-danger\'">                      {{ carta.stock }}                    </span>                  </td>                  <td>                    <button                      type="button"                      class="btn btn-warning btn-sm me-2"                      (click)="editarCarta(carta)">                      Editar                    </button>                    <button                      type="button"                      class="btn btn-danger btn-sm"                      (click)="eliminarCarta(carta.id)">                      Eliminar                    </button>                  </td>                </tr>              </tbody>            </table>          </div>        </div>      </div>    </div>    <div class="col-12 col-lg-6 mb-4">      <div class="card shadow">        <div class="card-body">          <h2 class="h4">            Usuarios registrados          </h2>          <div class="table-responsive">            <table class="table table-striped align-middle">              <thead>                <tr>                  <th>Nombre</th>                  <th>Correo</th>                  <th>Rol</th>                  <th>Acciones</th>                </tr>              </thead>              <tbody>                <tr *ngFor="let usuario of usuarios">                  <td>                    {{ usuario.nombre }}                  </td>                  <td>                    {{ usuario.correo }}                  </td>                  <td>                    <span                      class="badge"                      [ngClass]="usuario.rol === \'admin\' ? \'bg-dark\' : \'bg-success\'">                      {{ usuario.rol }}                    </span>                  </td>                  <td>                    <button                      *ngIf="usuario.rol !== \'admin\'"                      class="btn btn-danger btn-sm"                      type="button"                      (click)="eliminarUsuario(usuario.correo)">                      Eliminar                    </button>                    <span                      *ngIf="usuario.rol === \'admin\'"                      class="text-muted">                      Protegido                    </span>                  </td>                </tr>              </tbody>            </table>          </div>        </div>      </div>    </div>    <div class="col-12 col-lg-6 mb-4">      <div class="card shadow">        <div class="card-body">          <h2 class="h4">            Compras registradas          </h2>          <p class="text-muted">            El administrador puede revisar todas las compras efectuadas por los usuarios.          </p>          <div            class="alert alert-info"            *ngIf="compras.length === 0">            No existen compras registradas.          </div>          <div            class="card mb-3"            *ngFor="let compra of compras">            <div class="card-body">              <h5>                {{ compra.usuario || \'Cliente Riftbound\' }}              </h5>              <p class="mb-1">                <strong>Correo:</strong>                {{ compra.correo || \'correo no registrado\' }}              </p>              <p class="mb-1">                <strong>Fecha:</strong>                {{ compra.fecha }}              </p>              <p class="mb-2">                <strong>Total:</strong>                ${{ compra.total | number:\'1.2-2\' }}              </p>              <strong>                Cartas compradas:              </strong>              <ul class="mt-2">                <li *ngFor="let carta of compra.cartas">                  {{ carta.nombre }}                  ({{ carta.cantidad || 1 }})                  -                  ${{ carta.precio }}                </li>              </ul>            </div>          </div>        </div>      </div>    </div>  </section></main></div>'
+    var COMPONENTS = [{'name': 'Admin', 'selector': 'app-admin'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Catalogo', 'selector': 'app-catalogo'},{'name': 'DetalleCarta', 'selector': 'app-detalle-carta'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'Admin'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'Admin.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

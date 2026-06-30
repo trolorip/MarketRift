@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" routerLink="/login">
+      ⚔ Riftbound Market
+    </a>
+
+    <div class="ms-auto">
+      <a class="btn btn-outline-light btn-sm" routerLink="/login">
+        Iniciar sesión
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+
+<main class="container py-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-12 col-md-8 col-lg-5">
+
+      <div class="card border-0 shadow-lg">
+
+        <div class="card-body p-4">
+
+          <h1 class="h3 text-center fw-bold mb-3">
+            Recuperar Contraseña
+          </h1>
+
+          <p class="text-center text-muted mb-4">
+            Recupera el acceso a tu colección y sigue expandiendo tu mazo.
+          </p>
+
+          <div class="alert alert-warning small">
+            Ingresa el correo asociado a tu cuenta y establece una nueva contraseña.
+          </div>
+
+          <div class="alert alert-success" *ngIf="mostrarMensaje">
+            {{ mensajeRecuperacion }}
+          </div>
+
+          <form (ngSubmit)="recuperar()">
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Correo registrado
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                placeholder="invocador@riftbound.com"
+                [(ngModel)]="correo"
+                name="correo">
+
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100">
+              Recuperar contraseña
+            </button>
+
+          </form>
+
+          <hr>
+
+          <p class="text-center mb-0">
+
+            <a routerLink="/login">
+              Volver al inicio de sesión
+            </a>
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>

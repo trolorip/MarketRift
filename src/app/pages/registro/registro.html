@@ -1,0 +1,219 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" routerLink="/login">
+      ⚔ Riftbound Market
+    </a>
+
+    <div class="ms-auto">
+      <a class="btn btn-outline-light btn-sm" routerLink="/login">
+        Iniciar sesión
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+
+<main class="container py-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-12 col-md-10 col-lg-7">
+
+      <div class="card border-0 shadow-lg">
+
+        <div class="card-body p-4">
+
+          <h1 class="h3 text-center fw-bold mb-3">
+            Crear Cuenta
+          </h1>
+
+          <p class="text-center text-muted mb-4">
+            Únete a Riftbound Market y comienza tu colección.
+          </p>
+
+          <div class="alert alert-info">
+            Las cuentas creadas tendrán el rol de
+            <strong>{{ rolNuevoUsuario }}</strong>
+            y podrán comprar, vender e intercambiar cartas.
+          </div>
+
+          <div class="alert alert-success" *ngIf="mostrarMensaje">
+            Cuenta creada correctamente. Redirigiendo al login...
+          </div>
+
+          <form [formGroup]="formulario" (ngSubmit)="registrar()">
+
+            <div class="row">
+
+              <div class="col-12 col-md-6 mb-3">
+
+                <label class="form-label">
+                  Nombre completo
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ej: Ahri Main"
+                  formControlName="nombre"
+                  [class.is-invalid]="campoInvalido('nombre')">
+
+                <div class="invalid-feedback">
+                  El nombre completo es obligatorio.
+                </div>
+
+              </div>
+
+              <div class="col-12 col-md-6 mb-3">
+
+                <label class="form-label">
+                  Nombre de usuario
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ej: Invocador123"
+                  formControlName="usuario"
+                  [class.is-invalid]="campoInvalido('usuario')">
+
+                <div class="invalid-feedback" *ngIf="formulario.get('usuario')?.errors?.['required']">
+                  El nombre de usuario es obligatorio.
+                </div>
+
+                <div class="invalid-feedback" *ngIf="formulario.get('usuario')?.errors?.['duplicado']">
+                  Este nombre de usuario ya está en uso.
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Correo electrónico
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                placeholder="correo@ejemplo.cl"
+                formControlName="correo"
+                [class.is-invalid]="campoInvalido('correo')">
+
+              <div class="invalid-feedback" *ngIf="formulario.get('correo')?.errors?.['required']">
+                El correo es obligatorio.
+              </div>
+
+              <div class="invalid-feedback" *ngIf="formulario.get('correo')?.errors?.['email']">
+                El correo no tiene un formato válido.
+              </div>
+
+              <div class="invalid-feedback" *ngIf="formulario.get('correo')?.errors?.['duplicado']">
+                Este correo ya está registrado.
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-12 col-md-6 mb-3">
+
+                <label class="form-label">
+                  Contraseña
+                </label>
+
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Tu contraseña"
+                  formControlName="password"
+                  [class.is-invalid]="campoInvalido('password')">
+
+                <div class="invalid-feedback" *ngIf="formulario.get('password')?.errors?.['required']">
+                  La contraseña es obligatoria.
+                </div>
+
+                <div class="invalid-feedback" *ngIf="formulario.get('password')?.errors?.['minlength']">
+                  La contraseña debe tener mínimo 8 caracteres.
+                </div>
+
+                <div class="invalid-feedback" *ngIf="formulario.get('password')?.errors?.['maxlength']">
+                  La contraseña debe tener máximo 16 caracteres.
+                </div>
+
+                <div class="invalid-feedback" *ngIf="formulario.get('password')?.errors?.['passwordSegura']">
+                  Debe incluir mayúscula, minúscula, número y carácter especial.
+                </div>
+
+              </div>
+
+              <div class="col-12 col-md-6 mb-3">
+
+                <label class="form-label">
+                  Confirmar contraseña
+                </label>
+
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Repite tu contraseña"
+                  formControlName="confirmarPassword"
+                  [class.is-invalid]="campoInvalido('confirmarPassword') || passwordsNoCoinciden()">
+
+                <div class="invalid-feedback" *ngIf="formulario.get('confirmarPassword')?.errors?.['required']">
+                  Debes confirmar la contraseña.
+                </div>
+
+                <div class="invalid-feedback" *ngIf="passwordsNoCoinciden()">
+                  Las contraseñas no coinciden.
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="alert alert-light border small">
+
+              <strong>Requisitos de contraseña:</strong>
+
+              <ul class="mb-0">
+
+                <li *ngFor="let requisito of requisitosPassword">
+                  {{ requisito }}
+                </li>
+
+              </ul>
+
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-warning w-100 fw-bold">
+              Crear cuenta
+            </button>
+
+          </form>
+
+          <hr>
+
+          <p class="text-center mb-0">
+            ¿Ya tienes cuenta?
+            <a routerLink="/login">
+              Iniciar sesión
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>

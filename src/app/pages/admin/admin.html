@@ -1,0 +1,431 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" routerLink="/admin">
+      {{ nombreTienda }}
+    </a>
+
+    <ul class="navbar-nav ms-auto">
+
+      <li class="nav-item" *ngFor="let item of menu">
+
+        <a class="nav-link" [routerLink]="item.ruta">
+          {{ item.texto }}
+        </a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<main class="container py-5">
+
+  <section class="mb-4">
+
+    <h1 class="h2">
+      Panel de administración
+    </h1>
+
+    <p class="lead">
+      {{ mensajeAdmin }}
+    </p>
+
+    <div class="alert alert-dark">
+      Esta página solo permite acceso al rol
+      <strong>admin</strong>.
+      Sirve para demostrar diferencia de permisos.
+    </div>
+
+    <div class="alert alert-success" *ngIf="mensaje">
+      {{ mensaje }}
+    </div>
+
+  </section>
+
+  <section class="row">
+
+    <div class="col-12 mb-4">
+
+      <div class="card shadow">
+
+        <div class="card-body">
+
+          <h2 class="h4">
+            {{ cartaEditandoId === null ? 'Agregar carta' : 'Editar carta' }}
+          </h2>
+
+          <form [formGroup]="formularioCarta" (ngSubmit)="guardarCarta()">
+
+            <div class="row">
+
+              <div class="col-12 col-md-6 mb-3">
+
+                <label class="form-label">
+                  Nombre
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre"
+                  [class.is-invalid]="campoInvalido('nombre')">
+
+                <div class="invalid-feedback">
+                  El nombre de la carta es obligatorio.
+                </div>
+
+              </div>
+
+              <div class="col-12 col-md-3 mb-3">
+
+                <label class="form-label">
+                  Precio
+                </label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="precio"
+                  [class.is-invalid]="campoInvalido('precio')">
+
+                <div class="invalid-feedback">
+                  El precio debe ser mayor a 0.
+                </div>
+
+              </div>
+
+              <div class="col-12 col-md-3 mb-3">
+
+                <label class="form-label">
+                  Stock
+                </label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="stock"
+                  [class.is-invalid]="campoInvalido('stock')">
+
+                <div class="invalid-feedback">
+                  El stock debe ser 0 o mayor.
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Descripción
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="descripcion"
+                [class.is-invalid]="campoInvalido('descripcion')">
+
+              <div class="invalid-feedback">
+                La descripción es obligatoria.
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Ruta imagen
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="assets/img/nuevaCarta.jpg"
+                formControlName="imagen"
+                [class.is-invalid]="campoInvalido('imagen')">
+
+              <div class="invalid-feedback">
+                La ruta de la imagen es obligatoria.
+              </div>
+
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-success me-2">
+              {{ cartaEditandoId === null ? 'Agregar carta' : 'Guardar cambios' }}
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              *ngIf="cartaEditandoId !== null"
+              (click)="limpiarFormulario()">
+              Cancelar edición
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-12 mb-4">
+
+      <div class="card shadow">
+
+        <div class="card-body">
+
+          <h2 class="h4">
+            Mantenedor de productos
+          </h2>
+
+          <p class="text-muted">
+            Desde esta sección el administrador puede revisar, editar y eliminar las cartas disponibles en el catálogo.
+          </p>
+
+          <div class="table-responsive">
+
+            <table class="table table-striped align-middle">
+
+              <thead>
+
+                <tr>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Acciones</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let carta of cartas">
+
+                  <td>
+
+                    <img
+                      [src]="carta.imagen"
+                      [alt]="carta.nombre"
+                      class="imagen-admin">
+
+                  </td>
+
+                  <td>
+                    {{ carta.nombre }}
+                  </td>
+
+                  <td>
+                    {{ carta.descripcion }}
+                  </td>
+
+                  <td>
+                    ${{ carta.precio | number:'1.2-2' }}
+                  </td>
+
+                  <td>
+
+                    <span
+                      class="badge"
+                      [ngClass]="carta.stock > 0 ? 'bg-success' : 'bg-danger'">
+                      {{ carta.stock }}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <button
+                      type="button"
+                      class="btn btn-warning btn-sm me-2"
+                      (click)="editarCarta(carta)">
+                      Editar
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-sm"
+                      (click)="eliminarCarta(carta.id)">
+                      Eliminar
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-12 col-lg-6 mb-4">
+
+      <div class="card shadow">
+
+        <div class="card-body">
+
+          <h2 class="h4">
+            Usuarios registrados
+          </h2>
+
+          <div class="table-responsive">
+
+            <table class="table table-striped align-middle">
+
+              <thead>
+
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Rol</th>
+                  <th>Acciones</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let usuario of usuarios">
+
+                  <td>
+                    {{ usuario.nombre }}
+                  </td>
+
+                  <td>
+                    {{ usuario.correo }}
+                  </td>
+
+                  <td>
+
+                    <span
+                      class="badge"
+                      [ngClass]="usuario.rol === 'admin' ? 'bg-dark' : 'bg-success'">
+                      {{ usuario.rol }}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <button
+                      *ngIf="usuario.rol !== 'admin'"
+                      class="btn btn-danger btn-sm"
+                      type="button"
+                      (click)="eliminarUsuario(usuario.correo)">
+                      Eliminar
+                    </button>
+
+                    <span
+                      *ngIf="usuario.rol === 'admin'"
+                      class="text-muted">
+                      Protegido
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-12 col-lg-6 mb-4">
+
+      <div class="card shadow">
+
+        <div class="card-body">
+
+          <h2 class="h4">
+            Compras registradas
+          </h2>
+
+          <p class="text-muted">
+            El administrador puede revisar todas las compras efectuadas por los usuarios.
+          </p>
+
+          <div
+            class="alert alert-info"
+            *ngIf="compras.length === 0">
+            No existen compras registradas.
+          </div>
+
+          <div
+            class="card mb-3"
+            *ngFor="let compra of compras">
+
+            <div class="card-body">
+
+              <h5>
+                {{ compra.usuario || 'Cliente Riftbound' }}
+              </h5>
+
+              <p class="mb-1">
+                <strong>Correo:</strong>
+                {{ compra.correo || 'correo no registrado' }}
+              </p>
+
+              <p class="mb-1">
+                <strong>Fecha:</strong>
+                {{ compra.fecha }}
+              </p>
+
+              <p class="mb-2">
+                <strong>Total:</strong>
+                ${{ compra.total | number:'1.2-2' }}
+              </p>
+
+              <strong>
+                Cartas compradas:
+              </strong>
+
+              <ul class="mt-2">
+
+                <li *ngFor="let carta of compra.cartas">
+
+                  {{ carta.nombre }}
+                  ({{ carta.cantidad || 1 }})
+                  -
+                  ${{ carta.precio }}
+
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
