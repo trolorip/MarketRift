@@ -57,7 +57,8 @@ export class Admin implements OnInit {
     { texto: 'Catálogo', ruta: '/catalogo' },
     { texto: 'Carrito', ruta: '/carrito' },
     { texto: 'Perfil', ruta: '/perfil' },
-    { texto: 'Admin', ruta: '/admin' }
+    { texto: 'Admin', ruta: '/admin' },
+    { texto: 'Ventas', ruta: '/ventas-mensuales' }
   ];
 
   cartasIniciales: Carta[] = [

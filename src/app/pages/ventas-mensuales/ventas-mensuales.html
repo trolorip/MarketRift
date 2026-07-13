@@ -1,0 +1,356 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" routerLink="/catalogo">
+      {{ nombreTienda }}
+    </a>
+
+    <ul class="navbar-nav ms-auto">
+
+      <li class="nav-item" *ngFor="let item of menu">
+
+        <a class="nav-link" [routerLink]="item.ruta">
+          {{ item.texto }}
+        </a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<main class="container py-5">
+
+  <section class="mb-4">
+
+    <h1 class="h2">
+      Ventas mensuales
+    </h1>
+
+
+    <div class="alert alert-success" *ngIf="mensaje">
+      {{ mensaje }}
+    </div>
+
+  </section>
+
+  <section class="row mb-4">
+
+    <div class="col-12 col-md-6 mb-3">
+
+      <div class="card shadow h-100">
+
+        <div class="card-body">
+
+          <h2 class="h4">
+            Total vendido
+          </h2>
+
+          <p class="display-6 text-success fw-bold">
+            ${{ totalGeneral | number:'1.2-2' }}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+
+      <div class="card shadow h-100">
+
+        <div class="card-body">
+
+          <h2 class="h4">
+            Unidades vendidas
+          </h2>
+
+          <p class="display-6 fw-bold">
+            {{ unidadesTotales }}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="card shadow mb-4">
+
+    <div class="card-body">
+
+      <h2 class="h4 mb-3">
+        {{ ventaEditandoId === null ? 'Agregar venta mensual' : 'Editar venta mensual' }}
+      </h2>
+
+      <form [formGroup]="formularioVenta" (ngSubmit)="guardarVenta()">
+
+        <div class="row">
+
+          <div class="col-12 col-md-3 mb-3">
+
+            <label class="form-label">
+              Mes
+            </label>
+
+            <select
+              class="form-select"
+              formControlName="mesNumero"
+              [class.is-invalid]="campoInvalido('mesNumero')">
+
+              <option value="">
+                Selecciona un mes
+              </option>
+
+              <option
+                *ngFor="let mes of meses"
+                [value]="mes.numero">
+                {{ mes.nombre }}
+              </option>
+
+            </select>
+
+            <div class="invalid-feedback">
+              Debes seleccionar un mes.
+            </div>
+
+          </div>
+
+          <div class="col-12 col-md-2 mb-3">
+
+            <label class="form-label">
+              Año
+            </label>
+
+            <input
+              type="number"
+              class="form-control"
+              formControlName="anio"
+              [class.is-invalid]="campoInvalido('anio')">
+
+            <div class="invalid-feedback">
+              Ingresa un año válido.
+            </div>
+
+          </div>
+
+          <div class="col-12 col-md-4 mb-3">
+
+            <label class="form-label">
+              Carta vendida
+            </label>
+
+            <select
+              class="form-select"
+              formControlName="cartaId"
+              [class.is-invalid]="campoInvalido('cartaId')">
+
+              <option value="">
+                Selecciona una carta
+              </option>
+
+              <option
+                *ngFor="let carta of cartas"
+                [value]="carta.id">
+                {{ carta.nombre }}
+              </option>
+
+            </select>
+
+            <div class="invalid-feedback">
+              Debes seleccionar una carta.
+            </div>
+
+          </div>
+
+          <div class="col-12 col-md-3 mb-3">
+
+            <label class="form-label">
+              Unidades
+            </label>
+
+            <input
+              type="number"
+              class="form-control"
+              formControlName="unidades"
+              [class.is-invalid]="campoInvalido('unidades')">
+
+            <div class="invalid-feedback">
+              Las unidades deben ser mayores a 0.
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="row" *ngIf="obtenerCartaSeleccionada() as carta">
+
+          <div class="col-12 col-md-3 mb-3">
+
+            <label class="form-label">
+              Producto
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              [value]="carta.nombre"
+              readonly>
+
+          </div>
+
+          <div class="col-12 col-md-3 mb-3">
+
+            <label class="form-label">
+              Categoría
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              [value]="carta.descripcion"
+              readonly>
+
+          </div>
+
+          <div class="col-12 col-md-3 mb-3">
+
+            <label class="form-label">
+              Precio unitario
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              [value]="'$' + (carta.precio | number:'1.2-2')"
+              readonly>
+
+          </div>
+
+          <div class="col-12 col-md-3 mb-3">
+
+            <label class="form-label">
+              Total calculado
+            </label>
+
+            <input
+              type="text"
+              class="form-control fw-bold text-success"
+              [value]="'$' + (calcularTotalFormulario() | number:'1.2-2')"
+              readonly>
+
+          </div>
+
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success me-2">
+          {{ ventaEditandoId === null ? 'Agregar venta' : 'Guardar cambios' }}
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary me-2"
+          *ngIf="ventaEditandoId !== null"
+          (click)="limpiarFormulario()">
+          Cancelar edición
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="recargarDesdeJson()">
+          Recargar JSON original
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <section class="card shadow">
+
+    <div class="card-body">
+
+      <h2 class="h4 mb-3">
+        Registros de ventas ordenados por fecha
+      </h2>
+
+      <div class="alert alert-info" *ngIf="ventas.length === 0">
+        No existen ventas mensuales registradas.
+      </div>
+
+      <div class="table-responsive" *ngIf="ventas.length > 0">
+
+        <table class="table table-striped align-middle">
+
+          <thead>
+
+            <tr>
+              <th>Fecha</th>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Unidades</th>
+              <th>Total</th>
+              <th>Acciones</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let venta of ventas">
+
+              <td>
+                {{ venta.mes }} {{ venta.anio }}
+              </td>
+
+              <td>{{ venta.producto }}</td>
+
+              <td>{{ venta.categoria }}</td>
+
+              <td>{{ venta.unidades }}</td>
+
+              <td>
+                ${{ venta.total | number:'1.2-2' }}
+              </td>
+
+              <td>
+
+                <button
+                  type="button"
+                  class="btn btn-warning btn-sm me-2"
+                  (click)="editarVenta(venta)">
+                  Editar
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  (click)="eliminarVenta(venta.id)">
+                  Eliminar
+                </button>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>

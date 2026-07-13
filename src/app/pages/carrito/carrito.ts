@@ -21,6 +21,13 @@ interface Carta {
   stock: number;
 }
 
+interface UsuarioSesion {
+  nombre: string;
+  usuario: string;
+  correo: string;
+  rol: 'admin' | 'cliente';
+}
+
 @Component({
   selector: 'app-carrito',
   standalone: true,
@@ -29,7 +36,7 @@ interface Carta {
   styleUrl: './carrito.css'
 })
 export class Carrito implements OnInit {
-
+  sesionActual: UsuarioSesion | null = null;
   nombreTienda: string = 'Riftbound Marketplace';
 
   carrito: ItemCarrito[] = [];
@@ -43,13 +50,16 @@ export class Carrito implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.cargarCarrito();
-  }
+  this.cargarSesion();
+  this.cargarMenu();
+  this.cargarCarrito();
+}
 
   cargarCarrito(): void {
     this.carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
   }
 
+  
   get total(): number {
     return this.carrito.reduce(
       (acumulado, item) => acumulado + item.precio * item.cantidad,
@@ -144,5 +154,34 @@ export class Carrito implements OnInit {
   private guardarCarrito(): void {
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }
+
+  cargarSesion(): void {
+  const sesionGuardada = localStorage.getItem('sesion');
+
+  if (sesionGuardada) {
+    this.sesionActual = JSON.parse(sesionGuardada);
+  }
+}
+
+esAdmin(): boolean {
+  return this.sesionActual?.rol === 'admin';
+}
+
+cargarMenu(): void {
+  if (this.esAdmin()) {
+    this.menu = [
+      { texto: 'Catálogo', ruta: '/catalogo' },
+      { texto: 'Perfil', ruta: '/perfil' },
+      { texto: 'Admin', ruta: '/admin' },
+      { texto: 'Ventas', ruta: '/ventas-mensuales' }
+    ];
+  } else {
+    this.menu = [
+      { texto: 'Catálogo', ruta: '/catalogo' },
+      { texto: 'Carrito', ruta: '/carrito' },
+      { texto: 'Perfil', ruta: '/perfil' }
+    ];
+  }
+}
 
 }

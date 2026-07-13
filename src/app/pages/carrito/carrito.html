@@ -163,12 +163,12 @@
           </button>
 
           <button
-            class="btn btn-success"
-            type="button"
-            (click)="finalizarCompra()"
-            [disabled]="carrito.length === 0">
-            Finalizar compra
-          </button>
+  class="btn btn-success"
+  type="button"
+  (click)="finalizarCompra()"
+  [disabled]="carrito.length === 0 || esAdmin()">
+  {{ esAdmin() ? 'Administrador no puede comprar' : 'Finalizar compra' }}
+</button>
 
         </div>
 

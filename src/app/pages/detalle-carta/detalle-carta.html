@@ -66,11 +66,12 @@
               </div>
 
               <button
-                class="btn btn-success btn-lg me-2"
-                type="button"
-                (click)="agregarAlCarrito()">
-                Agregar al carrito
-              </button>
+  class="btn btn-success btn-lg me-2"
+  type="button"
+  (click)="agregarAlCarrito()"
+  [disabled]="!carta || carta.stock <= 0 || esAdmin()">
+  {{ esAdmin() ? 'Solo vista administrador' : carta.stock > 0 ? 'Agregar al carrito' : 'Sin stock' }}
+</button>
 
               <a
                 routerLink="/catalogo"

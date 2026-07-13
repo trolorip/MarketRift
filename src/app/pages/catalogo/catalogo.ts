@@ -15,6 +15,13 @@ interface ItemCarrito extends Carta {
   cantidad: number;
 }
 
+interface UsuarioSesion {
+  nombre: string;
+  usuario: string;
+  correo: string;
+  rol: 'admin' | 'cliente';
+}
+
 @Component({
   selector: 'app-catalogo',
   standalone: true,
@@ -27,6 +34,8 @@ export class Catalogo implements OnInit {
   nombreTienda: string = 'Riftbound Market';
 
   mensaje: string = '';
+
+  sesionActual: UsuarioSesion | null = null;
 
   menu = [
     { texto: 'Catálogo', ruta: '/catalogo' },
@@ -64,7 +73,38 @@ export class Catalogo implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.cargarSesion();
+    this.cargarMenu();
     this.cargarCartas();
+  }
+
+  cargarSesion(): void {
+    const sesionGuardada = localStorage.getItem('sesion');
+
+    if (sesionGuardada) {
+      this.sesionActual = JSON.parse(sesionGuardada);
+    }
+  }
+
+  cargarMenu(): void {
+    if (this.esAdmin()) {
+      this.menu = [
+        { texto: 'Catálogo', ruta: '/catalogo' },
+        { texto: 'Perfil', ruta: '/perfil' },
+        { texto: 'Admin', ruta: '/admin' },
+        { texto: 'Ventas', ruta: '/ventas-mensuales' }
+      ];
+    } else {
+      this.menu = [
+        { texto: 'Catálogo', ruta: '/catalogo' },
+        { texto: 'Carrito', ruta: '/carrito' },
+        { texto: 'Perfil', ruta: '/perfil' }
+      ];
+    }
+  }
+
+  esAdmin(): boolean {
+    return this.sesionActual?.rol === 'admin';
   }
 
   cargarCartas(): void {
@@ -85,6 +125,11 @@ export class Catalogo implements OnInit {
 
   agregarAlCarrito(carta: Carta): void {
     this.mensaje = '';
+
+    if (this.esAdmin()) {
+      this.mensaje = 'El administrador solo puede revisar el catálogo, no realizar compras.';
+      return;
+    }
 
     if (carta.stock <= 0) {
       this.mensaje = carta.nombre + ' no tiene stock disponible.';
@@ -117,5 +162,4 @@ export class Catalogo implements OnInit {
 
     this.mensaje = carta.nombre + ' agregado al carrito.';
   }
-
 }

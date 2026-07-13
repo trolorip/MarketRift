@@ -45,22 +45,41 @@ export class Perfil implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    const sesionGuardada = localStorage.getItem('sesion');
-
-    if (!sesionGuardada) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    this.sesionActual = JSON.parse(sesionGuardada);
-
-    this.formularioPerfil.patchValue({
-      nombre: this.sesionActual?.nombre,
-      usuario: this.sesionActual?.usuario,
-      correo: this.sesionActual?.correo
-    });
+  cargarMenu(): void {
+  if (this.sesionActual?.rol === 'admin') {
+    this.menu = [
+      { texto: 'Catálogo', ruta: '/catalogo' },
+      { texto: 'Perfil', ruta: '/perfil' },
+      { texto: 'Admin', ruta: '/admin' },
+      { texto: 'Ventas', ruta: '/ventas-mensuales' }
+    ];
+  } else {
+    this.menu = [
+      { texto: 'Catálogo', ruta: '/catalogo' },
+      { texto: 'Carrito', ruta: '/carrito' },
+      { texto: 'Perfil', ruta: '/perfil' }
+    ];
   }
+}
+
+  ngOnInit(): void {
+  const sesionGuardada = localStorage.getItem('sesion');
+
+  if (!sesionGuardada) {
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  this.sesionActual = JSON.parse(sesionGuardada);
+
+  this.cargarMenu();
+
+  this.formularioPerfil.patchValue({
+    nombre: this.sesionActual?.nombre,
+    usuario: this.sesionActual?.usuario,
+    correo: this.sesionActual?.correo
+  });
+}
 
   guardarPerfil(): void {
     if (this.formularioPerfil.invalid) {

@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "cartaId": 1,
+    "mes": "Enero",
+    "mesNumero": 1,
+    "anio": 2026,
+    "producto": "Ivern",
+    "categoria": "Unleashed Showcase",
+    "unidades": 4,
+    "total": 1159.88
+  },
+  {
+    "id": 2,
+    "cartaId": 2,
+    "mes": "Febrero",
+    "mesNumero": 2,
+    "anio": 2026,
+    "producto": "Baron",
+    "categoria": "Ultimate",
+    "unidades": 2,
+    "total": 2511.98
+  },
+  {
+    "id": 3,
+    "cartaId": 3,
+    "mes": "Marzo",
+    "mesNumero": 3,
+    "anio": 2026,
+    "producto": "Lee Sin",
+    "categoria": "Origins Showcase",
+    "unidades": 10,
+    "total": 20.9
+  }
+]
